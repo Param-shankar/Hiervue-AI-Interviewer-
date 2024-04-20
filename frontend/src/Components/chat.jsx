@@ -1,5 +1,4 @@
 import React from 'react';
-import '../Components/style1.css';
 
 function ChatContainer() {
   return (
