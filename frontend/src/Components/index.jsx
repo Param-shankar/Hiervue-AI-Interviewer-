@@ -1,18 +1,18 @@
 import React from 'react';
 import logo from '../assets/logo.jpeg'; // Import your logo image
-import '../Components/style.css';; 
+import '../Components/style.css';
 
 
 function InterviewScheduler() {
   return (
-    <div>
+    <div style={{ marginTop: 0 }}>
       <nav>
-        <div>
-          <div className="logo"> <img src={logo} alt="logo image" style={{ width: '65px', height: '65px' }} /></div>
+        <div clasName="nav-div">
+          <div className="logo"> <img src={logo} alt="logo image" style={{ width: '100%', height: '100%' }} /></div>
         </div>
         <div style={{ display:'flex', gap: '10px' }}>
           <div className="dropdown">
-            <button className="dropbtn">Language</button>
+            <button className="dropbtn" style={{display : 'flex', textAlign:"center" , alignItems:"center"}}>Language</button>
             <div className="dropdown-content">
               <a href="#">English</a>
               <a href="#">हिन्दी</a>
