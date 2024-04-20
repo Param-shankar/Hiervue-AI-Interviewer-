@@ -6,10 +6,6 @@ body {
   color: #fff; /* White text color */
 }
 
-*{
-  padding: 0%;
-  margin: 0%;
-}
 .container {
   max-width: 500px;
   margin: 50px auto;
@@ -73,20 +69,18 @@ input[type="submit"]:hover {
 nav {
   max-width: 100vw;
   height: 65px;
-  margin: 0;
+  margin: auto;
   display: flex;
   justify-content: space-around;
   align-items: center;
   border: 1px solid black;
   background-color: #12222F;
+  align-items: center;
 }
-nav .nav-div{
-  display: flex;
-  justify-content: space-between;
-}
+
 nav img {
   color: #FFA000;
-  width: 100%;
+  width: 130px;
   position: relative;
   z-index: 10;
 }
@@ -111,9 +105,6 @@ nav button {
 }
 
 .logo {
-  
-  padding: 0;
-  margin: 0;
   border-radius: 1px solid black;
   width: 65px;
   height: 65px;
