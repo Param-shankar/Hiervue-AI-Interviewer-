@@ -17,12 +17,12 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/">
       <Route path="/" element={<InterviewScheduler />} />
-      <Route path="chats" element={<ChatContainer />} />
+      <Route path="interview" element={<ChatContainer />} />
     </Route>
   )
 );
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>
+  // </React.StrictMode>
 );

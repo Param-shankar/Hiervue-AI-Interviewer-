@@ -71,7 +71,7 @@ nav {
   height: 65px;
   margin: auto;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   border: 1px solid black;
   background-color: #12222F;
@@ -111,6 +111,8 @@ nav button {
   object-fit: cover;
   z-index: 10px;
   background-color: aqua;
+  padding: 0%;
+  margin: 0;
 }
 
 .dropdown {

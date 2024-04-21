@@ -1,0 +1,35 @@
+    await axios
+      .post("/api/getmp", {
+        val: statement,
+      })
+      .then((val) => {
+        const payload = {
+          input_face:
+            "https://res.cloudinary.com/darkybkfp/video/upload/v1713654125/h1yv85s43fgsmelxukbk.mp4",
+          input_audio: val.data.audioUrl,
+        };
+
+        async function gooeyAPI() {
+          const response = await fetch("https://api.gooey.ai/v2/Lipsync/", {
+            method: "POST",
+            headers: {
+              Authorization:
+                "Bearer " +
+                "sk-9QegVPGQuaSgaIcU0sn0vE1pzB7JQBF0KGbUOzyok4j9yG51",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+          });
+
+          if (!response.ok) {
+            throw new Error(response.status);
+          }
+
+          const result = await response.json();
+          console.log(response.status, result);
+          setvideourl(result.output.output_video);
+          result.output.output_video;
+        }
+        gooeyAPI();
+      });
+  };
