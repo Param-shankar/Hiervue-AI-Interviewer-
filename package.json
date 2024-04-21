@@ -24,6 +24,7 @@
     "openai": "^4.38.2",
     "playht": "^0.9.8",
     "react-router": "^6.22.3",
+    "react-spinners": "^0.13.8",
     "text-to-mp3": "^1.0.4"
   }
 }

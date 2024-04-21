@@ -8,7 +8,7 @@ body {
     #chat-container {
         display: flex;
         flex-direction: row;
-        height: 100vh;
+        height: 95vh;
         width:55vw ; 
         margin: auto;
         /* gap:5px ;  */

@@ -2,30 +2,74 @@ import React, { useEffect, useState } from "react";
 import "../Components/style1.css";
 import Designer from "../assets/Designer.png";
 import axios from "axios";
+import BarLoader from "react-spinners/BarLoader";
+import Dictaphone1 from "./Dict";
+
+const Aichat = ({ val }) => {
+  return (
+    <div
+      className="message-left ai-message"
+      style={{
+        display: "flex",
+        height: "90%",
+        width: "100%",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <p>{val}</p>
+    </div>
+  );
+};
+
+const Mytext = ({ message }) => {
+  return (
+    <div
+      className="message-left employee-message"
+      style={{
+        display: "flex",
+        height: "3vh",
+        width: "100%",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <p>{message}</p>
+    </div>
+  );
+};
 
 function ChatContainer() {
   const [que, setque] = useState([
-    "Do you have good time management skills?",
-    "Do you believe in working hard or working smarter?",
-    "Would you call yourself an organized person?",
+    "8 .Do you have good time management skills?",
+    "9 .Do you believe in working hard or working smarter?",
+    "10.Would you call yourself an organized person?",
   ]);
-  const [id, setid] = useState(null);
+  const [aimsg, setaimsg] = useState([]);
   const [videourl, setvideourl] = useState(
     "https://res.cloudinary.com/darkybkfp/video/upload/v1713654125/h1yv85s43fgsmelxukbk.mp4"
   );
   const [nextvideourl, setnextvideourl] = useState("");
   const [currentque, setcurrentque] = useState(-1);
   const [button, setbutton] = useState(false);
+  const [message, setMessage] = useState("");
+  const [mymsg, setmymsg] = useState([]);
+  const [loading, setlaoding] = useState(false);
 
   const handclear = () => {
     setque([]);
+    setmymsg([]);
   };
+
   const fetchque = async () => {
-    const ques = await axios.get("api/google");
+    setlaoding(true);
+    const ques = await axios.get("/api/google");
     //  console.log(ques.data);
     const q = ques.data.split("\n");
-    setque([que, ...q]);
+    console.log(q);
+    setque([...q, ...que]);
     console.log("fetching que");
+    setlaoding(false);
   };
 
   const fetchavatar = async (statement) => {
@@ -40,7 +84,7 @@ function ChatContainer() {
         method: "POST",
         headers: {
           Authorization:
-            "Bearer " + "sk-Vc7E8pFv1piitDmmYvtuJgZlFsqPkDRc0u3zQ7QzLB99jm29",
+            "Bearer " + "sk-mN5kwzA47vU2K2HzWpIW9klVd1kHH1EgJFm7C023UKa0GDdI",
           "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
@@ -64,12 +108,12 @@ function ChatContainer() {
       console.log(videourl);
       console.log(nextvideourl);
       fetchavatar(que[currentque]);
+      setaimsg([...aimsg, que[currentque]]);
     }
   }, [currentque]);
 
   const startinteview = () => {
     setbutton(!button);
-    fetchavatar("Are you ready for interview ?");
     if (currentque == -1) {
       setcurrentque(0);
     }
@@ -79,9 +123,14 @@ function ChatContainer() {
     fetchque();
   }, []);
 
+  useEffect(() => {
+    console.log("i changed", message);
+    setmymsg([message, ...mymsg]); 
+  }, [message]);
+
   const handlenext = () => {
     console.log(currentque);
-    if (currentque >= 7) {
+    if (currentque >= 9) {
       console.log("no more que");
     } else {
       setcurrentque(() => currentque + 1);
@@ -122,17 +171,41 @@ function ChatContainer() {
           </div>
         </div>
         <br />
-        <div className="message-left ai-message">
-          <p>This is an AI message.</p>
-        </div>
-        <div className="message-left employee-message">
-          <p>This is an employee message.</p>
-          {que.map((val) => {
-            // console.log(val.slice(3,val.length));
-
-            return <p>{val.slice(3, val.length)}</p>;
-          })}
-        </div>
+        {loading ? (
+          <div
+            style={{
+              display: "flex",
+              height: "90%",
+              width: "100%",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <BarLoader color="#36d7b7" />
+          </div>
+        ) : (
+          <div>
+            <div
+              className="message-left employee-message"
+              style={{
+                display: "flex",
+                alignContent: "flex-end",
+                height: "7.5vh",
+                justifyContent: "center",
+              }}
+            >
+              <p>You can Start Now </p>
+            </div>
+            {aimsg.map((message) => {
+              return <Aichat val={message} />;
+            })}
+          </div>
+        )}
+        {mymsg.map((val) => {
+          console.log(mymsg);
+          return <Mytext message={val} />;
+        })}
+        <Dictaphone1 message={message} setMessage={setMessage} />
       </div>
       <div id="right-chat">
         <div id="ai-chat">
@@ -146,7 +219,7 @@ function ChatContainer() {
           </div>
         </div>
         <div>
-          <button onClick={startinteview}>
+          <button onClick={startinteview} disabled={loading}>
             {button ? "running the interview" : "Start Interview"}
           </button>
           <button onClick={handlenext}>next que</button>

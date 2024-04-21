@@ -1,54 +1,87 @@
-import React, { useRef } from 'react';
+import React from "react";
+import logo from "../assets/logo.jpeg"; // Import your logo image
+import "../Components/style.css";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
-function UploadForm() {
-    const fileInputRef = useRef(null);
+function InterviewScheduler() {
+  const handlesubmit = async () => {
+    const data = await axios.post("/api/resume");
+  };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const file = fileInputRef.current.files[0];
-        // Handle file upload logic here
-    };
-
-    return (
+  return (
+    <div>
+      <nav>
         <div>
-            <header className="header">
-                <div className="container">
-                    <div className="logo">
-                        <img src="logo1.jpg" alt="logo" />
-                        <h1>Das</h1>
-                    </div>
-                    <nav className="menu">
-                        <div className="head">
-                            <div className="logo"><img src="logo1.jpg" alt="logo" /> </div>
-                            <button type="button" className="close-menu-btn"></button>
-                        </div>
-                        <ul>
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">About</a></li>
-                        </ul>
-                    </nav>
-                </div>
-            </header>
-            <section className="body-1">
-                <div className="content1">
-                    <h1 style={{ fontSize: '70px' }}>Das </h1>
-                    <br /><br /><h3 style={{ fontSize: '50px' }}>Interview Round</h3>
-                </div>
-                <div className="content2">
-                    <form onSubmit={handleSubmit}>
-                        <label htmlFor="UserName">UserName</label><br />
-                        <input type="text" /><br /><br />
-                        <label htmlFor="email"> E-mail ID</label><br />
-                        <input type="email" /><br /><br />
-                        <label htmlFor="pdf"></label>
-                        <input type="file" name="pdfFile" accept=".pdf" ref={fileInputRef} />
-                        <button type="submit">Upload</button>
-                    </form>
-                </div>
-            </section>
-            <script src="home_page.js"></script>
+          <div className="logo">
+            {" "}
+            <img
+              src={logo}
+              alt="logo image"
+              style={{ width: "65px", height: "65px" }}
+            />
+          </div>
         </div>
-    );
+        <div style={{ display: "flex", gap: "10px" }}>
+          <div className="dropdown">
+            <button
+              className="dropbtn"
+              style={{ display: "flex", alignItems: "center" }}
+            >
+              Language
+            </button>
+            <div className="dropdown-content">
+              <a href="#">English</a>
+              <a href="#">हिन्दी</a>
+              {/* Add more language options as needed */}
+            </div>
+          </div>
+          <button className="btn-red-sm" onClick={() => languagepage()}>
+            sign in
+          </button>
+        </div>
+      </nav>
+      <div
+        style={{
+          backgroundColor: "rgba(159, 159, 159, 0.826)",
+          height: "3px",
+          width: "100%",
+        }}
+      ></div>
+      <br />
+      <br />
+      <br />
+      <div className="container">
+        <h1>Interview Scheduler</h1>
+        <form method="post" onSubmit={handlesubmit}>
+          <label htmlFor="name">Full Name:</label>
+          <input type="text" id="name" name="name" required />
+          <label htmlFor="email">Email:</label>
+          <input type="email" id="email" name="email" required />
+          <label htmlFor="resume">Upload Resume:</label>
+          <input
+            type="file"
+            id="resume"
+            name="resume"
+            accept=".pdf,.doc, .docx ,.txt,.png ,.jepg"
+            required
+          />{" "}
+          <br />
+          <br />
+          <Link to={"interview"}> 
+            <input
+              type="submit"
+              className="btn btn-red"
+              onClick={() => languagepage()}
+              value="Schedule Interview"
+            />
+          </Link>
+        </form>
+      </div>
+    </div>
+  );
 }
 
-export default UploadForm;
+function languagepage() {}
+
+export default InterviewScheduler;
